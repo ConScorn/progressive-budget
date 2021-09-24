@@ -4,7 +4,7 @@
 
 This app is a balance tracking tool. It was designed to assist users in keeping track of their spending, even without an internet connection. This is achieved by implementing MongoDB and IndexedDB, to keep track of the user's transactions, and present the user with updated data consistently.
 
-![screenshot](public/img/screenshot.PNG)
+![screenshot](public/img/screenshot1.PNG)
 
 ## Table of Contents
 
