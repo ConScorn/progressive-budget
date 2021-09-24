@@ -4,12 +4,12 @@ let budgetVersion;
 const request = indexedDB.open("budget", budgetVersion || 21);
 
 request.onupgradeneeded = function (e) {
-  console.log("Upgrade needed in IndexDB");
+  console.log("IndexDB outdated!");
 
   const { oldVersion } = e;
   const newVersion = e.newVersion || db.version;
 
-  console.log(`DB Updated from version ${oldVersion} to ${newVersion}`);
+  console.log(`Updated DB from version ${oldVersion} to ${newVersion}`);
 
     db = e.target.result;
     db.createObjectStore("pending", { autoIncrement: true });
@@ -20,12 +20,8 @@ request.onerror = function (e) {
 };
 
 function checkDatabase() {
-  console.log("check db invoked");
-
   let transaction = db.transaction(["pending"], "readwrite");
-
   const store = transaction.objectStore("pending");
-
   const getAll = store.getAll();
 
   getAll.onsuccess = function () {
@@ -48,7 +44,6 @@ function checkDatabase() {
             const currentStore = transaction.objectStore("pending");
 
             currentStore.clear();
-            console.log("Clearing store 🧹");
           }
         });
     }
@@ -56,11 +51,9 @@ function checkDatabase() {
 }
 
 request.onsuccess = function (e) {
-  console.log("success");
   db = e.target.result;
 
   if (navigator.onLine) {
-    console.log("Backend online! 🗄️");
     checkDatabase();
   }
 };
